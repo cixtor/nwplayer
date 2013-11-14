@@ -1,6 +1,13 @@
 
 /**
- * Module dependencies.
+ * NWPlayer
+ * http://cixtor.com/
+ * https://github.com/cixtor/nwplayer
+ *
+ * Desktop and web application to watch videos from major websites and saving
+ * the history in a local database. Check the history, video information, related
+ * videos, playlists, avoid ads in the interface and take control of your stats
+ * without affect your browsing.
  */
 
 var express = require('express');
@@ -8,8 +15,6 @@ var http = require('http');
 var path = require('path');
 
 var app = express();
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('public/history.db');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -28,22 +33,74 @@ if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
 
-app.get('/', function(req, res){
-    db.serialize(function(){
-        db.run('CREATE TABLE IF NOT EXISTS lorem (info TEXT)');
-        var stmt = db.prepare('INSERT INTO lorem VALUES (?)');
-        for( var i=0; i<10; i++ ){
-                stmt.run("Ipsum " + i);
-        }
-        stmt.finalize();
-        db.each('SELECT rowid AS id, info FROM lorem', function(err, row){
-                console.log(row.id + ': ' + row.info);
+/**
+ * NWPlayer Service
+ * @type {Object}
+ *
+ * JavaScript object with multiple functions required in the application to
+ * execute requests to remote APIs and handling the response to save the
+ * necessary information in the local database.
+ */
+
+var NWPlayer = {
+    autoplay: true,
+    allowed_types: [ 'youtube', 'vimeo' ],
+    db: null,
+    dbconfig: {
+        name: 'history.db',
+        path: 'public/history.db',
+        description: 'NWPlayer Database',
+        size: 2 * 1024 * 1024
+    },
+
+    initialize: function(){
+        var sqlite3 = require('sqlite3').verbose();
+        var db = new sqlite3.Database(this.dbconfig.path);
+        this.db = db;
+
+        db.serialize(function(){
+            console.log('Check if database table exists, create it if not.');
+            db.run(''
+                +'CREATE TABLE IF NOT EXISTS videos ('
+                +'id INTEGER PRIMARY KEY,'
+                +'type TEXT,'
+                +'video_id TEXT,'
+                +'title TEXT,'
+                +'description TEXT,'
+                +'duration INTEGER,'
+                +'url TEXT,'
+                +'image TEXT,'
+                +'views INTEGER,'
+                +'created_at INTEGER,'
+                +'updated_at INTEGER'
+                +');'
+            );
         });
-        res.render('index', { title: 'Express' });
-    });
+
+        console.log('NWPlayer service initialized');
+    },
+
+    close_database: function(){
+        this.db.close();
+    }
+};
+
+
+/**
+ * NWPlayer Server
+ * @return {string}
+ *
+ * ExpressJS implementation to route the requests and responses of the web
+ * application. Note: This part of the application will eventually change
+ * when the graphic interface is finished.
+ */
+
+NWPlayer.initialize();
+
+app.get('/', function(req, res){
+    res.render('index', { title: 'Express' });
 });
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
-    // db.close();
 });
