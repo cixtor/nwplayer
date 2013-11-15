@@ -82,6 +82,18 @@ var NWPlayer = {
 
     close_database: function(){
         this.db.close();
+    },
+
+    get_video_id: function(link){
+        video_id = false;
+        if( link!='' ){
+            if( match = link.match(/.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)?([a-zA-Z0-9\-_]{11}).*/) ){
+                video_id = ( match && match[1].length==11 ) ? match[1] : false;
+            }else if( match = link.match(/[vimeo |vimeo\.com\/|vimeo.*clip_id=]?([0-9]+)/) ){
+                video_id = match[1];
+            }
+        }
+        return video_id;
     }
 };
 
