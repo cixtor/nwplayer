@@ -94,6 +94,16 @@ var NWPlayer = {
             }
         }
         return video_id;
+    },
+
+    get_playlist_id: function(link){
+        video_id = false;
+        if( link.length>0 ){
+            if( match = link.match(/.*youtube\.com\/.*list=([a-zA-Z0-9]+)/) ){
+                video_id = match[1];
+            }
+        }
+        return video_id;
     }
 };
 
