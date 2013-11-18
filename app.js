@@ -104,6 +104,11 @@ var NWPlayer = {
             }
         }
         return video_id;
+    },
+
+    get_video_from_url: function(link){
+        video_id = this.get_video_id(link);
+        return video_id ? this.get_video_data(video_id) : false;
     }
 };
 
