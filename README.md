@@ -6,10 +6,9 @@ It was initially developed on top of [Sinatra](http://www.sinatrarb.com) and rew
 
 ### Features
 
-* Video stream using regular expressions to autodetect the appropiate video player to display.
-* Video description and thumbnail on video streaming.
-* Video reload (without database manipulation) on video streaming errors.
-* History and views storing, including a way to search through the history by title and video_id.
+* Video description and thumbnails.
+* Video reload (without database manipulation) for video streaming errors.
+* Video hitory including a way to search in the database by title and video id.
 * Display related videos (Youtube support only).
 * Display videos from a Playlist (Youtube support only).
 
@@ -25,7 +24,7 @@ can retrieve the current most popular videos from YouTube in JSON format as foll
 http://gdata.youtube.com/feeds/api/standardfeeds/most_popular?v=2&alt=json
 ```
 
-<small>Reference: [Developers Guide JSON](https://developers.google.com/youtube/2.0/developers_guide_json)</small>
+Reference: [Developers Guide JSON](https://developers.google.com/youtube/2.0/developers_guide_json)
 
 ### Developers Guide JSON-C
 
@@ -35,7 +34,7 @@ Atom (XML), RSS (XML), JSON (JavaScript Object Notation) and JSON-C, which is a 
 This document describes the JSON-C response format, which is designed to allow developers a
 basic level of API access to API responses from JavaScript and other clients.
 
-<small>Reference: [Developers Guide JSON-C](https://developers.google.com/youtube/2.0/developers_guide_jsonc)</small>
+Reference: [Developers Guide JSON-C](https://developers.google.com/youtube/2.0/developers_guide_jsonc)
 
 ### License
 
