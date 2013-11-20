@@ -109,6 +109,24 @@ var NWPlayer = {
     get_video_from_url: function(link){
         video_id = this.get_video_id(link);
         return video_id ? this.get_video_data(video_id) : false;
+    },
+
+    get_video_from_db: function(video_id, callback){
+        this.db.get('SELECT * FROM videos WHERE video_id = ? LIMIT 1', video_id, function(err, row){
+            var video = new Object();
+            video.original = row;
+            video.basic = {
+                type: video.original.type,
+                id: video.original.video_id,
+                title: video.original.title,
+                description: video.original.description,
+                image: video.original.image,
+                duration: video.original.duration,
+                exists: 1
+            };
+            video = this.complement_video_data(video);
+            callback(video);
+        });
     }
 };
 
