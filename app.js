@@ -127,6 +127,13 @@ var NWPlayer = {
             video = this.complement_video_data(video);
             callback(video);
         });
+    },
+
+    get_video_from_db_by: function(column, value, callback){
+        if( typeof column != 'string' ){ column = 'title'; }
+        this.db.each('SELECT * FROM videos WHERE '+column+' LIKE "%'+value+'%"', function(err, row){
+            callback(row);
+        });
     }
 };
 
