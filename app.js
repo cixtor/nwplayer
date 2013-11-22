@@ -134,6 +134,15 @@ var NWPlayer = {
         this.db.each('SELECT * FROM videos WHERE '+column+' LIKE "%'+value+'%"', function(err, row){
             callback(row);
         });
+    },
+
+    get_url_from_id: function(type, id){
+        var video_url = false;
+        switch(type){
+            case 'youtube': video_url = 'http://www.youtube.com/watch?v='+id; break;
+            case 'vimeo': video_url = 'http://vimeo.com/'+id; break;
+        }
+        return video_url;
     }
 };
 
