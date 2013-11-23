@@ -143,6 +143,16 @@ var NWPlayer = {
             case 'vimeo': video_url = 'http://vimeo.com/'+id; break;
         }
         return video_url;
+    },
+
+    get_url_for_embed: function(type, id){
+        var video_url = false;
+        switch(type){
+            case 'youtube': video_url = 'http://www.youtube.com/embed/'+id; break;
+            case 'vimeo': video_url = 'http://player.vimeo.com/video/'+id; break;
+        }
+        if( video_url && this.autoplay ){ video_url += '?autoplay=1'; }
+        return video_url;
     }
 };
 
