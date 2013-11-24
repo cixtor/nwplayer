@@ -153,6 +153,13 @@ var NWPlayer = {
         }
         if( video_url && this.autoplay ){ video_url += '?autoplay=1'; }
         return video_url;
+    },
+
+    video_already_viewed: function(video_id, callback){
+        this.db.get('SELECT video_id FROM videos WHERE video_id = ?', video_id, function(err, row){
+            var viewed = (row==undefined) ? false : true;
+            callback(viewed);
+        });
     }
 };
 
