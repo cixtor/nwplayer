@@ -112,7 +112,8 @@ var NWPlayer = {
     },
 
     get_video_from_db: function(video_id, callback){
-        this.db.get('SELECT * FROM videos WHERE video_id = ? LIMIT 1', video_id, function(err, row){
+        var instance = this;
+        instance.db.get('SELECT * FROM videos WHERE video_id = ? LIMIT 1', video_id, function(err, row){
             var video = new Object();
             video.original = row;
             video.basic = {
@@ -124,7 +125,7 @@ var NWPlayer = {
                 duration: video.original.duration,
                 exists: 1
             };
-            video = this.complement_video_data(video);
+            video = instance.complement_video_data(video);
             callback(video);
         });
     },
@@ -160,6 +161,12 @@ var NWPlayer = {
             var viewed = (row==undefined) ? false : true;
             callback(viewed);
         });
+    },
+
+    complement_video_data: function(video){
+        video.basic.url = this.get_url_from_id(video.basic.type, video.basic.id);
+        video.basic.embed = this.get_url_for_embed(video.basic.type, video.basic.id);
+        return video;
     }
 };
 
