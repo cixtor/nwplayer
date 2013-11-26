@@ -163,6 +163,32 @@ var NWPlayer = {
         });
     },
 
+    get_video_data: function(video_id, callback){
+        var instance = this;
+        var current_time = new Date().getTime();
+        instance.video_already_viewed(video_id, function(viewed){
+            if(viewed){
+                instance.get_video_from_db(video_id, function(data){
+                    var video = data.original;
+                    instance.db.run(
+                        'UPDATE videos SET updated_at=?, views=? WHERE id=?',
+                        [ current_time, video.views+1, video.id ]
+                    );
+                });
+            }else{
+                if( video_id.match(/[a-zA-Z0-9\-_]{11}/) ){
+                    instance.get_youtube_video(video_id, function(data){
+                        callback(data);
+                    });
+                }else if( video_id.match(/^[0-9]+$/) ){
+                    instance.get_vimeo_video(video_id, function(data){
+                        callback(data);
+                    });
+                }
+            }
+        });
+    },
+
     complement_video_data: function(video){
         video.basic.url = this.get_url_from_id(video.basic.type, video.basic.id);
         video.basic.embed = this.get_url_for_embed(video.basic.type, video.basic.id);
