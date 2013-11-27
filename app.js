@@ -189,6 +189,37 @@ var NWPlayer = {
         });
     },
 
+    get_remote: function(options, callback){
+        var output = '';
+        var search_uri = url.format({
+            protocol: 'http',
+            hostname: options.hostname,
+            pathname: '/'+options.pathname,
+            query: options.params ? options.params : {}
+        });
+        var p_search_uri = url.parse(search_uri);
+
+        var req = http.get({
+            host:p_search_uri.host,
+            path:p_search_uri.path,
+            headers:{
+                'User-Agent': 'Mozilla/5.0 (X11; Linux i686; rv:20.0) Gecko/20121204 Firefox/20.0'
+            }
+        }, function(res){
+            res.on('data', function(chunk){
+                output += chunk;
+            });
+            res.on('end', function(){
+                callback(output);
+            })
+        });
+
+        req.on('error', function(e){
+            console.log('Error. Problem with request: '+e.message);
+        });
+        req.end();
+    },
+
     complement_video_data: function(video){
         video.basic.url = this.get_url_from_id(video.basic.type, video.basic.id);
         video.basic.embed = this.get_url_for_embed(video.basic.type, video.basic.id);
