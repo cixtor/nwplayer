@@ -249,6 +249,34 @@ var NWPlayer = {
         });
     },
 
+    get_vimeo_video: function(video_id, callback){
+        this.get_remote({
+            hostname: 'vimeo.com',
+            pathname: 'api/v2/video/'+video_id+'.json'
+        }, function(response){
+            response = response.match(/.* not found\./) ? false : JSON.parse(response);
+            var vdata = response ? response[0] : false;
+            var video = false;
+
+            if( vdata ){
+                video = {
+                    original: vdata,
+                    basic: {
+                        type: 'vimeo',
+                        id: vdata.id,
+                        title: vdata.title,
+                        description: vdata.description,
+                        image: vdata.thumbnail_large,
+                        duration: vdata.duration,
+                        exists: 1
+                    }
+                }
+                video = service.complement_video_data(video);
+            }
+            callback(video);
+        });
+    },
+
     complement_video_data: function(video){
         video.basic.url = this.get_url_from_id(video.basic.type, video.basic.id);
         video.basic.embed = this.get_url_for_embed(video.basic.type, video.basic.id);
