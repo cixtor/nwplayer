@@ -12,6 +12,7 @@
 
 var express = require('express');
 var http = require('http');
+var url = require('url');
 var path = require('path');
 
 var app = express();
@@ -221,7 +222,8 @@ var NWPlayer = {
     },
 
     get_youtube_video: function(video_id, callback){
-        this.get_remote({
+        var instance = this;
+        instance.get_remote({
             hostname: 'gdata.youtube.com',
             pathname: 'feeds/api/videos/'+video_id,
             params: { v:2, alt:'jsonc' }
@@ -243,14 +245,15 @@ var NWPlayer = {
                         exists: vdata.error ? 0 : 1
                     }
                 };
-                video = service.complement_video_data(video);
+                video = instance.complement_video_data(video);
             }
             callback(video);
         });
     },
 
     get_vimeo_video: function(video_id, callback){
-        this.get_remote({
+        var instance = this;
+        instance.get_remote({
             hostname: 'vimeo.com',
             pathname: 'api/v2/video/'+video_id+'.json'
         }, function(response){
@@ -271,7 +274,7 @@ var NWPlayer = {
                         exists: 1
                     }
                 }
-                video = service.complement_video_data(video);
+                video = instance.complement_video_data(video);
             }
             callback(video);
         });
