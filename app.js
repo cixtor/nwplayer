@@ -107,9 +107,17 @@ var NWPlayer = {
         return video_id;
     },
 
-    get_video_from_url: function(link){
-        video_id = this.get_video_id(link);
-        return video_id ? this.get_video_data(video_id) : false;
+    get_video_from_url: function(link, callback){
+        if( callback ){
+            video_id = this.get_video_id(link);
+            if( video_id ){
+                this.get_video_data(video_id, function(video){
+                    callback(video);
+                });
+            }else{
+                callback(false);
+            }
+        }
     },
 
     get_video_from_db: function(video_id, callback){
@@ -175,19 +183,37 @@ var NWPlayer = {
                         'UPDATE videos SET updated_at=?, views=? WHERE id=?',
                         [ current_time, video.views+1, video.id ]
                     );
+                    callback(data);
                 });
             }else{
                 if( video_id.match(/[a-zA-Z0-9\-_]{11}/) ){
                     instance.get_youtube_video(video_id, function(data){
+                        instance.set_video_data(data);
                         callback(data);
                     });
                 }else if( video_id.match(/^[0-9]+$/) ){
                     instance.get_vimeo_video(video_id, function(data){
+                        instance.set_video_data(data);
                         callback(data);
                     });
                 }
             }
         });
+    },
+
+    set_video_data: function(data){
+        var instance = this;
+        var current_time = new Date().getTime();
+        if( data ){
+            video = data.basic;
+            if( video.exists==1 ){
+                instance.db.run(''
+                    +'INSERT INTO videos(type, video_id, title, description, duration, url, image, views, created_at, updated_at) '
+                    +'VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                    [ video.type, video.id, video.title, video.description, video.duration, video.url, video.image, 1, current_time, current_time ]
+                );
+            }
+        }
     },
 
     get_remote: function(options, callback){
