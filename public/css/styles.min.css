@@ -1,0 +1,16 @@
+
+/**
+ * NWPlayer
+ * http://cixtor.com/
+ * https://github.com/cixtor/nwplayer
+ *
+ * Desktop and web application to watch videos from major websites and saving
+ * the history in a local database. Check the history, video information, related
+ * videos, playlists, avoid ads in the interface and take control of your stats
+ * without affect your browsing.
+ */
+
+#nwplayer{display:table;width:740px;margin:0 auto}
+#nwplayer .navbar{border-radius:0}
+#nwplayer .toolbar{width:565px;line-height:50px}
+.input-group-right .btn{border-right:none}

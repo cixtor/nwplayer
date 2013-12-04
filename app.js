@@ -326,7 +326,7 @@ var NWPlayer = {
 NWPlayer.initialize();
 
 app.get('/', function(req, res){
-    res.render('index', { title: 'Express' });
+    res.render('index', { app_title:'NWPlayer' });
 });
 
 http.createServer(app).listen(app.get('port'), function(){
