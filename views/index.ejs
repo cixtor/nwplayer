@@ -5,10 +5,10 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="/css/styles.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/nwplayer.min.css" />
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/scripts.min.js"></script>
+    <script type="text/javascript" src="/js/nwplayer.lib.js"></script>
 </head>
 <body>
     <div id="nwplayer">
@@ -27,16 +27,16 @@
                 <div class="toolbar nav navbar-nav navbar-left">
                     <div class="input-group">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" title="Search video"><i class="fa fa-search"></i></button>
-                            <button class="btn btn-default" type="button" title="Video history"><i class="fa fa-folder"></i></button>
+                            <button id="search-video" class="btn btn-default" type="button" title="Search video"><i class="fa fa-search"></i></button>
+                            <button id="db-history" class="btn btn-default" type="button" title="Video history"><i class="fa fa-folder"></i></button>
                         </span>
-                        <input type="text" class="form-control">
+                        <input type="text" id="video-input" class="form-control">
                         <span class="input-group-btn input-group-right">
-                            <button class="btn btn-default" type="button" title="Play video"><i class="fa fa-play"></i></button>
-                            <button class="btn btn-default" type="button" title="Play list"><i class="fa fa-list-ol"></i></button>
-                            <button class="btn btn-default" type="button" title="Related videos"><i class="fa fa-sitemap"></i></button>
-                            <button class="btn btn-default" type="button" title="Refresh player"><i class="fa fa-refresh"></i></button>
-                            <button class="btn btn-default" type="button" title="Video information"><i class="fa fa-info-circle"></i></button>
+                            <button id="video-play" class="btn btn-default" type="button" title="Play video"><i class="fa fa-play"></i></button>
+                            <button id="video-playlist" class="btn btn-default" type="button" title="Play list"><i class="fa fa-list-ol"></i></button>
+                            <button id="video-related" class="btn btn-default" type="button" title="Related videos"><i class="fa fa-sitemap"></i></button>
+                            <button id="video-refresh" class="btn btn-default" type="button" title="Refresh player"><i class="fa fa-refresh"></i></button>
+                            <button id="video-metadata" class="btn btn-default" type="button" title="Video information"><i class="fa fa-info-circle"></i></button>
                         </span>
                     </div>
                 </div>
@@ -58,6 +58,8 @@
                 </ul>
             </div>
         </div>
+
+        <div id="media-content"></div>
     </div>
 </body>
 </html>
