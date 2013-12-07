@@ -22,6 +22,27 @@ var NWPlayerLib = {
         iframe_height: 440
     },
 
+    video_play = function(){
+        var data;
+        var instance = this;
+        var video_url = $(instance.config.input_id).val();
+        if( video_url!='' ){
+            if( data = instance.vkcom_video(video_url) ){
+                instance.create_iframe_object(data);
+            }else{
+                $.ajax({
+                    url: instance.config.service + '/video_play',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { video_identifier:video_url },
+                    success: function(data, textStatus, jqXHR){
+                        create_iframe_object(data);
+                    }
+                });
+            }
+        }
+    },
+
     search_video: function(){
         var instance = this;
         var query = $(instance.config.input_id).val();
