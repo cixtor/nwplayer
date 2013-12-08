@@ -43,6 +43,23 @@ var NWPlayerLib = {
         }
     },
 
+    vkcom_video = function(string){
+        var data = false;
+        var regex = /vk\.com\/video_ext\.php\?oid=(\d+)(&amp;|&)id=(\d+)(&amp;|&)hash=([a-z0-9]+)/;
+        var match = string.match(regex);
+        if( match!=null ){
+            var data = {
+                is_vkcom_video: true,
+                oid: match[1],
+                id: match[3],
+                hash: match[5]
+            };
+            data.embed = 'http://vk.com/video_ext.php?oid='+data.oid+'&id='+data.id+'&hash='+data.hash+'&hd=1';
+            data.url = data.embed;
+        }
+        return data;
+    },
+
     search_video: function(){
         var instance = this;
         var query = $(instance.config.input_id).val();
