@@ -329,6 +329,29 @@ app.get('/', function(req, res){
     res.render('index', { app_title:'NWPlayer' });
 });
 
+app.post('/api/search_video', function(req, res){
+    if( req.body.query != undefined ){
+        var query = req.body.query;
+        NWPlayer.get_remote({
+            hostname: 'gdata.youtube.com',
+            pathname: 'feeds/api/videos',
+            params: { v:2, alt:'jsonc', q:query }
+        }, function(response){
+            var object = JSON.parse(response);
+            if( object.data.items != undefined ){
+                res.render('search_video',{ videos:object.data.items });
+            }else{
+                res.set('Content-Type', 'application/json');
+                res.write( JSON.stringify({
+                    error: 1,
+                    code: 404,
+                    message: 'No video results for "<strong>'+query+'</strong>"'
+                }) );
+            }
+        });
+    }
+});
+
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
 });

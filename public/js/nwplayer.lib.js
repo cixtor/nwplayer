@@ -22,7 +22,7 @@ var NWPlayerLib = {
         iframe_height: 440
     },
 
-    video_play = function(){
+    video_play: function(){
         var data;
         var instance = this;
         var video_url = $(instance.config.input_id).val();
@@ -43,7 +43,7 @@ var NWPlayerLib = {
         }
     },
 
-    vkcom_video = function(string){
+    vkcom_video: function(string){
         var data = false;
         var regex = /vk\.com\/video_ext\.php\?oid=(\d+)(&amp;|&)id=(\d+)(&amp;|&)hash=([a-z0-9]+)/;
         var match = string.match(regex);
@@ -61,7 +61,7 @@ var NWPlayerLib = {
     },
 
     search_video: function(){
-        var instance = this;
+        var instance = NWPlayerLib;
         var query = $(instance.config.input_id).val();
         if( query!='' ){
             $.ajax({

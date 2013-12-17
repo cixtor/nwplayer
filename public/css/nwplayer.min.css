@@ -10,7 +10,21 @@
  * without affect your browsing.
  */
 
-#nwplayer{display:table;width:740px;margin:0 auto}
-#nwplayer .navbar{border-radius:0}
-#nwplayer .toolbar{width:565px;line-height:50px}
+body{margin:0px;padding:0px;background-color:#333;overflow:hidden}
+#nwplayer{display:table;width:700px;margin:0 auto}
+#nwplayer .navbar{margin-bottom:0;border-radius:0}
+#nwplayer .toolbar{width:525px;line-height:50px}
+#nwplayer #media-content{height:418px;overflow:hidden;overflow-y:auto;background:#fff;padding:10px 0 0 0;border:1px solid #000;border-top:none}
 .input-group-right .btn{border-right:none}
+/* Video list styles */
+.videolist{}
+.videolist ul{padding:0}
+.videolist .video-item{list-style:none;margin-bottom:10px;padding:0 10px}
+.videolist .video-item .thumbnail{position:relative;width:300px;margin-bottom:0;padding:1px;border:1px solid #000;border-radius:2px}
+.videolist .video-item .duration{position:absolute;bottom:0;right:0;background:#fff;font-family:Monaco, monospace;font-size:12px;color:#000;padding:2px 8px 0 8px;border-radius:2px 0 0 0}
+.videolist .video-item .information{width:360px}
+.videolist .video-item .video-title{display:block;font-size:18px;font-weight:bold;color:#000;margin:0 0 20px 0}
+.videolist .video-item .video-title:hover{color:#666;text-decoration:none}
+.videolist .video-item .metadata{margin:0 0 20px 0}
+.videolist .video-item .metadata li{font-size:12px;list-style:none}
+.videolist .video-item .metadata label{width:85px;margin-bottom:0}
