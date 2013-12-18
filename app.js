@@ -310,6 +310,15 @@ var NWPlayer = {
         video.basic.url = this.get_url_from_id(video.basic.type, video.basic.id);
         video.basic.embed = this.get_url_for_embed(video.basic.type, video.basic.id);
         return video;
+    },
+
+    render_json: function(response, data){
+        response.set('Content-Type', 'application/json');
+
+        if( data.status == undefined ){ data.status = 0; }
+        if( data.status_code == undefined ){ data.status_code = 200; }
+        if( data.message == undefined ){ data.message = 'Undefined'; }
+        response.end(JSON.stringify(data));
     }
 };
 
@@ -341,12 +350,7 @@ app.post('/api/search_video', function(req, res){
             if( object.data.items != undefined ){
                 res.render('search_video',{ videos:object.data.items });
             }else{
-                res.set('Content-Type', 'application/json');
-                res.write( JSON.stringify({
-                    error: 1,
-                    code: 404,
-                    message: 'No video results for "<strong>'+query+'</strong>"'
-                }) );
+                NWPlayer.render_json(res, { code:404, message:'No video results for "<strong>'+query+'</strong>"' });
             }
         });
     }
