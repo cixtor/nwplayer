@@ -316,7 +316,7 @@ var NWPlayer = {
         response.set('Content-Type', 'application/json');
 
         if( data.status == undefined ){ data.status = 0; }
-        if( data.status_code == undefined ){ data.status_code = 200; }
+        if( data.code == undefined ){ data.code = 200; }
         if( data.message == undefined ){ data.message = 'Undefined'; }
         response.end(JSON.stringify(data));
     }
@@ -336,6 +336,21 @@ NWPlayer.initialize();
 
 app.get('/', function(req, res){
     res.render('index', { app_title:'NWPlayer' });
+});
+
+app.post('/api/video_play', function(req, res){
+    if( req.body.video_id != undefined ){
+        video_url = req.body.video_id;
+        NWPlayer.get_video_from_url(video_url, function(response){
+            if( response ){
+                NWPlayer.render_json(res, { status:1, message:'Video found', video:response.basic });
+            }else{
+                NWPlayer.render_json(res, { code:404, message:'Invalid video source' });
+            }
+        });
+    }else{
+        NWPlayer.render_json(res, { 'message':'Video identifier parameter not sent.' });
+    }
 });
 
 app.post('/api/search_video', function(req, res){
