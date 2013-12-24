@@ -141,8 +141,11 @@ var NWPlayer = {
 
     get_video_from_db_by: function(column, value, callback){
         if( typeof column != 'string' ){ column = 'title'; }
-        this.db.each('SELECT * FROM videos WHERE '+column+' LIKE "%'+value+'%"', function(err, row){
-            callback(row);
+
+        var items = new Array();
+        var sql = "SELECT * FROM videos WHERE "+column+" LIKE '%"+value+"%'";
+        this.db.all(sql, function(err, rows){
+            callback(rows);
         });
     },
 
@@ -363,12 +366,27 @@ app.post('/api/search_video', function(req, res){
         }, function(response){
             var object = JSON.parse(response);
             if( object.data.items != undefined ){
-                res.render('search_video',{ videos:object.data.items });
+                res.render('search_video', { videos:object.data.items });
             }else{
                 NWPlayer.render_json(res, { code:404, message:'No video results for "<strong>'+query+'</strong>"' });
             }
         });
     }
+});
+
+app.post('/api/db_history', function(req, res){
+    var column = 'title';
+    var query = ( req.body.query != undefined ) ? req.body.query : '';
+    var fields = [ 'id', 'video_id', 'title', 'duration', 'views', 'updated_at' ];
+
+    if( query.match(/(http|https|youtube|vimeo)/) ){
+        column = 'video_id';
+        query = NWPlayer.get_video_id(query);
+    }
+
+    NWPlayer.get_video_from_db_by(column, query, function(response){
+        res.render('db_history', { fields:fields, videos:response });
+    });
 });
 
 http.createServer(app).listen(app.get('port'), function(){

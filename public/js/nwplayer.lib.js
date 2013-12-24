@@ -95,6 +95,7 @@ var NWPlayerLib = {
             $.ajax({
                 url: instance.config.service + '/search_video',
                 type: 'POST',
+                dataType: 'html',
                 data: { query:query },
                 success: function(data, textStatus, jqXHR){
                     var content = $('<div>',{ class:'search-video videolist' }).append(data);
@@ -108,6 +109,27 @@ var NWPlayerLib = {
                 }
             });
         }
+    },
+
+    db_history: function(){
+        var instance = NWPlayerLib;
+        var query = $(instance.config.input_id).val();
+        $(instance.config.content_id).html('');
+        $.ajax({
+            url: instance.config.service + '/db_history',
+            type: 'POST',
+            dataType: 'html',
+            data:{ query:query },
+            success: function(data, textStatus, jqXHR){
+                $(instance.config.content_id).html(data);
+                $(instance.config.content_id+' td > a').bind('click', function(e){
+                    e.preventDefault();
+                    var video_url = $(this).attr('href');
+                    $(instance.config.input_id).val(video_url);
+                    NWPlayerLib.video_play();
+                });
+            }
+        });
     }
 }
 
@@ -115,5 +137,6 @@ jQuery(document).ready(function(){
     $('.toolbar .btn').tooltip({ 'container':'body', 'placement':'bottom' });
 
     $('#search-video').on('click', NWPlayerLib.search_video);
+    $('#db-history').on('click', NWPlayerLib.db_history);
     $('#video-play').on('click', NWPlayerLib.video_play);
 });

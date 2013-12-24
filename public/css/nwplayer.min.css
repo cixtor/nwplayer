@@ -29,3 +29,6 @@ body{margin:0px;padding:0px;background-color:#333;overflow:hidden}
 .videolist .video-item .metadata{margin:0 0 20px 0}
 .videolist .video-item .metadata li{font-size:12px;list-style:none}
 .videolist .video-item .metadata label{width:85px;margin-bottom:0}
+/* Video History styles */
+.dbhistory{margin:0;border:none}
+.dbhistory thead > tr > th{background:#f5f5f5;border-bottom:0}

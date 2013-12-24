@@ -1,0 +1,25 @@
+
+<table class="table table-bordered dbhistory">
+    <thead>
+        <tr>
+            <% fields.forEach(function(field){ %>
+                <th><%= field %></th>
+            <% }) %>
+        </tr>
+    </thead>
+    <tbody>
+        <% videos.forEach(function(item){ %>
+            <tr>
+                <% fields.forEach(function(field){ %>
+                    <% if( field == 'video_id' ){ %>
+                        <td><a href="<%= item['url'] %>" target="_self"><%= item['title'] %></a></td>
+                    <% } else if( field == 'updated_at' ){ %>
+                        <td><%= item[field] %></td>
+                    <% } else { %>
+                        <td><%= item[field] %></td>
+                    <% } %>
+                <% }) %>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
