@@ -374,6 +374,24 @@ app.post('/api/search_video', function(req, res){
     }
 });
 
+app.post('/api/related_video', function(req, res){
+    if( req.body.video_id != undefined ){
+        var video_id = NWPlayer.get_video_id(req.body.video_id);
+        NWPlayer.get_remote({
+            hostname: 'gdata.youtube.com',
+            pathname: 'feeds/api/videos/'+video_id+'/related',
+            params: { v:2, alt:'jsonc' }
+        }, function(response){
+            var object = JSON.parse(response);
+            if( object.data != undefined ){
+                res.render('search_video', { videos:object.data.items });
+            }else{
+                NWPlayer.render_json(res, object.error);
+            }
+        });
+    }
+});
+
 app.post('/api/db_history', function(req, res){
     var column = 'title';
     var query = ( req.body.query != undefined ) ? req.body.query : '';

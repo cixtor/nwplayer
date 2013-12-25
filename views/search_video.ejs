@@ -1,42 +1,44 @@
 
-<ul class="thumbnails ">
-    <% videos.forEach(function(item){ %>
-        <li class="video-item clearfix">
-            <div class="thumbnail pull-left">
-                <a href="" class="view-video">
-                    <img src="<%= item.thumbnail.hqDefault %>" />
-                </a>
-                <span class="duration"><%= item.duration %></span>
-            </div>
+<div class="search-video videolist">
+    <ul class="thumbnails ">
+        <% videos.forEach(function(item){ %>
+            <li class="video-item clearfix">
+                <div class="thumbnail pull-left">
+                    <a href="" class="view-video">
+                        <img src="<%= item.thumbnail.hqDefault %>" />
+                    </a>
+                    <span class="duration"><%= item.duration %></span>
+                </div>
 
-            <div class="pull-right information">
-                <a href="" class="view-video video-title"><%= item.title %></a>
+                <div class="pull-right information">
+                    <a href="" class="view-video video-title"><%= item.title %></a>
 
-                <ul class="metadata">
-                    <li>
-                        <label>Author:</label>
-                        <span><a href="http://www.youtube.com/user/<%= item.uploader %>" target="_blank" class="uploader"><%= item.uploader %></a></span>
-                    </li>
-                    <li>
-                        <label>Date/Time:</label>
-                        <span><%= item.uploaded %></span>
-                    </li>
-                    <li>
-                        <label>Total views:</label>
-                        <span><%= item.viewCount %></span>
-                    </li>
-                    <li>
-                        <label>Is embedable:</label>
-                        <span><%= item.accessControl['embed'] %></span>
-                    </li>
-                    <li>
-                        <label>Can autoplay:</label>
-                        <span><%= item.accessControl.autoPlay %></span>
-                    </li>
-                </ul>
+                    <ul class="metadata">
+                        <li>
+                            <label>Author:</label>
+                            <span><a href="http://www.youtube.com/user/<%= item.uploader %>" target="_blank" class="uploader"><%= item.uploader %></a></span>
+                        </li>
+                        <li>
+                            <label>Date/Time:</label>
+                            <span><%= item.uploaded %></span>
+                        </li>
+                        <li>
+                            <label>Total views:</label>
+                            <span><%= item.viewCount %></span>
+                        </li>
+                        <li>
+                            <label>Is embedable:</label>
+                            <span><%= item.accessControl['embed'] %></span>
+                        </li>
+                        <li>
+                            <label>Can autoplay:</label>
+                            <span><%= item.accessControl.autoPlay %></span>
+                        </li>
+                    </ul>
 
-                <p><%= item.description %></p>
-            </div>
-        </li>
-    <% }) %>
-</ul>
+                    <p><%= item.description %></p>
+                </div>
+            </li>
+        <% }) %>
+    </ul>
+</div>

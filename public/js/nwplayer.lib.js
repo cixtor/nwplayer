@@ -88,6 +88,17 @@ var NWPlayerLib = {
         $(config.content_id+'>.metadata .video-information blockquote>small').html( $('<a>',{href:data.url}).html(data.url) );
     },
 
+    draw_result_search: function(data){
+        var instance = NWPlayerLib;
+        $(instance.config.content_id).append(data);
+        $(instance.config.content_id+' .search-video .view-video').bind('click', function(e){
+            e.preventDefault();
+            var video_url = $(this).attr('href');
+            $(instance.config.input_id).val(video_url);
+            instance.video_play();
+        });
+    },
+
     search_video: function(){
         var instance = NWPlayerLib;
         var query = $(instance.config.input_id).val();
@@ -98,14 +109,22 @@ var NWPlayerLib = {
                 dataType: 'html',
                 data: { query:query },
                 success: function(data, textStatus, jqXHR){
-                    var content = $('<div>',{ class:'search-video videolist' }).append(data);
-                    $(instance.config.content_id).append(content);
-                    $(instance.config.content_id+' .search-video .view-video').bind('click', function(e){
-                        e.preventDefault();
-                        var video_url = $(this).attr('href');
-                        $(instance.config.input_id).val(video_url);
-                        instance.video_play();
-                    });
+                    instance.draw_result_search(data);
+                }
+            });
+        }
+    },
+
+    related_video: function(){
+        var instance = NWPlayerLib;
+        var video_url = $(instance.config.input_id).val();
+        if( video_url!='' ){
+            $.ajax({
+                url: instance.config.service + '/related_video',
+                type: 'POST',
+                data:{ video_id:video_url },
+                success: function(data, textStatus, jqXHR){
+                    instance.draw_result_search(data);
                 }
             });
         }
@@ -139,4 +158,5 @@ jQuery(document).ready(function(){
     $('#search-video').on('click', NWPlayerLib.search_video);
     $('#db-history').on('click', NWPlayerLib.db_history);
     $('#video-play').on('click', NWPlayerLib.video_play);
+    $('#video-related').on('click', NWPlayerLib.related_video);
 });
