@@ -130,6 +130,21 @@ var NWPlayerLib = {
         }
     },
 
+    video_playlist: function(){
+        var instance = NWPlayerLib;
+        var video_url = $(instance.config.input_id).val();
+        if( video_url!='' ){
+            $.ajax({
+                url: instance.config.service + '/video_playlist',
+                type: 'POST',
+                data:{ video_id:video_url },
+                success: function(data, textStatus, jqXHR){
+                    instance.draw_result_search(data);
+                }
+            });
+        }
+    },
+
     db_history: function(){
         var instance = NWPlayerLib;
         var query = $(instance.config.input_id).val();
@@ -158,5 +173,6 @@ jQuery(document).ready(function(){
     $('#search-video').on('click', NWPlayerLib.search_video);
     $('#db-history').on('click', NWPlayerLib.db_history);
     $('#video-play').on('click', NWPlayerLib.video_play);
+    $('#video-playlist').on('click', NWPlayerLib.video_playlist);
     $('#video-related').on('click', NWPlayerLib.related_video);
 });

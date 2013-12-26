@@ -392,6 +392,28 @@ app.post('/api/related_video', function(req, res){
     }
 });
 
+app.post('/api/video_playlist', function(req, res){
+    if( req.body.video_id != undefined ){
+        var video_id = NWPlayer.get_playlist_id(req.body.video_id);
+        if( video_id ){
+            NWPlayer.get_remote({
+                hostname: 'gdata.youtube.com',
+                pathname: 'feeds/api/playlists/'+video_id,
+                params: { v:2, alt:'jsonc' }
+            }, function(response){
+                var object = JSON.parse(response);
+                if( object.data != undefined && object.data.items != undefined ){
+                    res.render('search_video', { videos:object.data.items });
+                }else{
+                    NWPlayer.render_json(res, { code:404, message:'No videos for playlist <strong>'+video_id+'</strong>' });
+                }
+            });
+        }else{
+            NWPlayer.render_json(res, { code:404, message:'No playlist identifier detected' });
+        }
+    }
+});
+
 app.post('/api/db_history', function(req, res){
     var column = 'title';
     var query = ( req.body.query != undefined ) ? req.body.query : '';

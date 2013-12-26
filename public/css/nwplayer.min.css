@@ -14,11 +14,11 @@ body{margin:0px;padding:0px;background-color:#333;overflow:hidden}
 #nwplayer{display:table;width:702px;margin:0 auto}
 #nwplayer .navbar{margin-bottom:0;border-radius:0}
 #nwplayer .toolbar{width:525px;line-height:50px}
-#nwplayer #media-content{height:436px;overflow:hidden;overflow-y:auto;background:#fff;padding:0;border:1px solid #000;border-top:none}
+#nwplayer #media-content{height:436px;overflow:hidden;overflow-y:auto;background:#1b1b1b;padding:0;border:1px solid #000;border-top:none}
 .input-group-right .btn{border-right:none}
 #video-input{font-family:Monaco, monospace, Courier}
 /* Video list styles */
-.videolist{padding:10px 0 0 0}
+.videolist{background:#fff;padding:10px 0 0 0}
 .videolist ul{padding:0}
 .videolist .video-item{list-style:none;margin-bottom:10px;padding:0 10px}
 .videolist .video-item .thumbnail{position:relative;width:300px;margin-bottom:0;padding:1px;border:1px solid #000;border-radius:2px}

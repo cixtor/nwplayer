@@ -2,6 +2,7 @@
 <div class="search-video videolist">
     <ul class="thumbnails ">
         <% videos.forEach(function(item){ %>
+            <% if( item.video != undefined ){ item = item.video } %>
             <li class="video-item clearfix">
                 <div class="thumbnail pull-left">
                     <a href="" class="view-video">
