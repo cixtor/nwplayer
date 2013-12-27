@@ -164,6 +164,25 @@ var NWPlayerLib = {
                 });
             }
         });
+    },
+
+    video_refresh: function(){
+        var instance = NWPlayerLib;
+        var current_url = $(instance.config.iframe_id).attr('src');
+        if( current_url === undefined ){
+            var iframe = $('<iframe>',{
+                'id':     instance.config.iframe_id,
+                'width':  instance.config.iframe_width,
+                'height': instance.config.iframe_height,
+                'src':    $(instance.config.input_id).val(),
+                'frameborder': 0
+            });
+            $(instance.config.content_id).html(iframe);
+        }else{
+            $(instance.config.input_id).val('Reloading...');
+            $(instance.config.iframe_id).attr('src', current_url);
+            setTimeout(function(){ $(instance.config.input_id).val(current_url) }, 1000);
+        }
     }
 }
 
@@ -175,4 +194,5 @@ jQuery(document).ready(function(){
     $('#video-play').on('click', NWPlayerLib.video_play);
     $('#video-playlist').on('click', NWPlayerLib.video_playlist);
     $('#video-related').on('click', NWPlayerLib.related_video);
+    $('#video-refresh').on('click', NWPlayerLib.video_refresh);
 });
