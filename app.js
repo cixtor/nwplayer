@@ -88,11 +88,18 @@ var NWPlayer = {
     get_video_id: function(link){
         video_id = false;
         if( link!='' ){
-            if( match = link.match(/.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)?([a-zA-Z0-9\-_]{11}).*/) ){
-                video_id = ( match && match[1].length==11 ) ? match[1] : false;
-            }else if( match = link.match(/[vimeo |vimeo\.com\/|vimeo.*clip_id=]?([0-9]+)/) ){
-                video_id = match[1];
-            }
+            /* Matching YouTube video identifiers */
+                 if( match = link.match(/.*youtube\.com\/watch\?.*v=([a-zA-Z0-9\-_]{11}).*/) ){ video_id = match[1] }
+            else if( match = link.match(/.*youtube\.com\/embed\/([a-zA-Z0-9\-_]{11})(.*)/)   ){ video_id = match[1] }
+            else if( match = link.match(/.*youtube\.com\/.*src_vid=([a-zA-Z0-9\-_]{11}).*/)  ){ video_id = match[1] }
+            else if( match = link.match(/([a-zA-Z0-9\-_]{11})/)                              ){ video_id = match[1] }
+
+            /* Matching Vimeo video identifiers */
+            else if( match = link.match(/vimeo\.com\/([0-9]+).*/)                                        ){ video_id = match[1] }
+            else if( match = link.match(/vimeo\.com\/video\/([0-9]+)/)                                   ){ video_id = match[1] }
+            else if( match = link.match(/vimeo ([0-9]+)/)                                                ){ video_id = match[1] }
+            else if( match = link.match(/vimeo\.com\/moogaloop\.swf\?clip_id=(\d+)&server=vimeo\.com.*/) ){ video_id = match[1] }
+            else if( match = link.match(/^([0-9]+)$/)                                                    ){ video_id = match[1] }
         }
         return video_id;
     },
