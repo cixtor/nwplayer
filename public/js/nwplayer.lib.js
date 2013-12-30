@@ -195,4 +195,8 @@ jQuery(document).ready(function(){
     $('#video-playlist').on('click', NWPlayerLib.video_playlist);
     $('#video-related').on('click', NWPlayerLib.related_video);
     $('#video-refresh').on('click', NWPlayerLib.video_refresh);
+}).ajaxStart(function(){
+    $(NWPlayerLib.config.input_id).addClass('loading');
+}).ajaxComplete(function(){
+    $(NWPlayerLib.config.input_id).removeClass('loading');
 });
