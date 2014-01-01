@@ -8,18 +8,26 @@
         </tr>
     </thead>
     <tbody>
-        <% videos.forEach(function(item){ %>
+        <% if( videos.length > 0 ){ %>
+            <% videos.forEach(function(item){ %>
+                <tr>
+                    <% fields.forEach(function(field){ %>
+                        <% if( field == 'video_id' ){ %>
+                            <td><a href="<%= item['url'] %>" target="_self"><%= item['title'] %></a></td>
+                        <% } else if( field == 'updated_at' ){ %>
+                            <td><%= item[field] %></td>
+                        <% } else { %>
+                            <td><%= item[field] %></td>
+                        <% } %>
+                    <% }) %>
+                </tr>
+            <% }) %>
+        <% } else { %>
             <tr>
-                <% fields.forEach(function(field){ %>
-                    <% if( field == 'video_id' ){ %>
-                        <td><a href="<%= item['url'] %>" target="_self"><%= item['title'] %></a></td>
-                    <% } else if( field == 'updated_at' ){ %>
-                        <td><%= item[field] %></td>
-                    <% } else { %>
-                        <td><%= item[field] %></td>
-                    <% } %>
-                <% }) %>
+                <td colspan="<%= fields.length %>">
+                    <i>The result of this query is empty.</i>
+                </td>
             </tr>
-        <% }) %>
+        <% } %>
     </tbody>
 </table>
