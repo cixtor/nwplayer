@@ -26,6 +26,7 @@ var NWPlayerLib = {
         var data;
         var instance = NWPlayerLib;
         var video_url = $(instance.config.input_id).val();
+
         if( video_url!='' ){
             if( data = instance.vkcom_video(video_url) ){
                 instance.create_iframe(data);
@@ -102,6 +103,7 @@ var NWPlayerLib = {
     search_video: function(){
         var instance = NWPlayerLib;
         var query = $(instance.config.input_id).val();
+
         if( query!='' ){
             $.ajax({
                 url: instance.config.service + '/search_video',
@@ -148,7 +150,7 @@ var NWPlayerLib = {
     db_history: function(){
         var instance = NWPlayerLib;
         var query = $(instance.config.input_id).val();
-        $(instance.config.content_id).html('');
+
         $.ajax({
             url: instance.config.service + '/db_history',
             type: 'POST',
@@ -183,6 +185,16 @@ var NWPlayerLib = {
             $(instance.config.iframe_id).attr('src', current_url);
             setTimeout(function(){ $(instance.config.input_id).val(current_url) }, 1000);
         }
+    },
+
+    reset_media_content: function(){
+        var instance = NWPlayerLib;
+        var containers = [ '.videolist', '.dbhistory' ];
+
+        for( var i in containers ){
+            var container_class = containers[i];
+            $(instance.config.content_id+'>'+container_class).remove();
+        }
     }
 }
 
@@ -197,6 +209,7 @@ jQuery(document).ready(function(){
     $('#video-refresh').on('click', NWPlayerLib.video_refresh);
 }).ajaxStart(function(){
     $(NWPlayerLib.config.input_id).addClass('loading');
+    NWPlayerLib.reset_media_content();
 }).ajaxComplete(function(){
     $(NWPlayerLib.config.input_id).removeClass('loading');
 });
