@@ -37,10 +37,10 @@ var NWPlayerLib = {
                     dataType: 'json',
                     data: { video_id:video_url },
                     success: function(data, textStatus, jqXHR){
-                        if( data.status == 1 ){
-                            instance.create_iframe(data.video);
+                        if( instance.is_json_error(data) ){
+                            instance.draw_alert(data);
                         }else{
-                            alert('Error '+data.code+': '+data.message);
+                            instance.create_iframe(data.video);
                         }
                     }
                 });
@@ -89,15 +89,41 @@ var NWPlayerLib = {
         $(config.content_id+'>.metadata .video-information blockquote>small').html( $('<a>',{href:data.url}).html(data.url) );
     },
 
+    is_json_error: function(data){
+        if( data.status == undefined || data.status == 0 ){ return true }
+        else{ return false }
+    },
+
+    draw_alert: function(data){
+        var instance = NWPlayerLib;
+
+        if( data.code == undefined ){ data.code = 500 }
+        if( data.message == undefined ){ data.message = 'Internal Server Error' }
+
+        var d = $('<div>', { 'class':'alert alert-danger' });
+        var a = $('<a>', { 'class':'close', 'data-dismiss':'alert', 'href':'#', 'aria-hidden':'true' }).html('&times;');
+        var p = $('<p>').html( '<strong>Error '+data.code+'. </strong>'+data.message );
+
+        var alert = d.append(a).append(p);
+        $(instance.config.content_id).append(alert);
+    },
+
     draw_result_search: function(data){
         var instance = NWPlayerLib;
-        $(instance.config.content_id).append(data);
-        $(instance.config.content_id+' .search-video .view-video').bind('click', function(e){
-            e.preventDefault();
-            var video_url = $(this).attr('href');
-            $(instance.config.input_id).val(video_url);
-            instance.video_play();
-        });
+
+        if( instance.is_json_error(data) ){
+            instance.draw_alert(data);
+        }
+
+        else{
+            $(instance.config.content_id).append(data);
+            $(instance.config.content_id+' .search-video .view-video').bind('click', function(e){
+                e.preventDefault();
+                var video_url = $(this).attr('href');
+                $(instance.config.input_id).val(video_url);
+                instance.video_play();
+            });
+        }
     },
 
     search_video: function(){
@@ -108,7 +134,6 @@ var NWPlayerLib = {
             $.ajax({
                 url: instance.config.service + '/search_video',
                 type: 'POST',
-                dataType: 'html',
                 data: { query:query },
                 success: function(data, textStatus, jqXHR){
                     instance.draw_result_search(data);
@@ -154,7 +179,6 @@ var NWPlayerLib = {
         $.ajax({
             url: instance.config.service + '/db_history',
             type: 'POST',
-            dataType: 'html',
             data:{ query:query },
             success: function(data, textStatus, jqXHR){
                 $(instance.config.content_id).html(data);
@@ -189,7 +213,7 @@ var NWPlayerLib = {
 
     reset_media_content: function(){
         var instance = NWPlayerLib;
-        var containers = [ '.videolist', '.dbhistory' ];
+        var containers = [ '.alert', '.videolist', '.dbhistory' ];
 
         for( var i in containers ){
             var container_class = containers[i];
