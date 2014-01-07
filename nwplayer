@@ -1,0 +1,54 @@
+#!/bin/bash
+#
+# NWPlayer
+# http://cixtor.com/
+# https://github.com/cixtor/nwplayer
+#
+# Desktop and web application to watch videos from major websites and saving
+# the history in a local database. Check the history, video information, related
+# videos, playlists, avoid ads in the interface and take control of your stats
+# without affect your browsing.
+#
+basepath='/opt/nwplayer'
+browser='desktop/window.py'
+
+function success {
+    echo -e "\e[0;92m[+]\e[0m $1"
+}
+
+function info {
+    echo -e "\e[0;93m[!]\e[0m $1"
+}
+
+function fail {
+    echo -e "\e[0;91m[x]\e[0m $1"
+    exit 1
+}
+
+info "NWPlayer @ Cixtor.com"
+if [ -d "${basepath}" ]; then
+    echo -n "Changing to application directory... "
+    cd "${basepath}"
+    if [ $(pwd) == "${basepath}" ]; then echo -e "\e[0;92mOK\e[0m"; fi
+
+    if [ $(which node) ]; then
+        if [ $(which python) ]; then
+            node_bin=$(which node)
+            python_bin=$(which python)
+            $node_bin app &
+            $python_bin "${browser}"
+
+            info "Shutdown nodejs.express server..."
+            for process in $(ps -A u | grep 'node app' | awk '{print $2}'); do
+                echo -e "    killing process: \e[0;92m${process}\e[0m"
+                skill -kill $process
+            done
+        else
+            fail "This application requires Python and GTK to display a mini-browser"
+        fi
+    else
+        fail "This application requires Node.JS to run"
+    fi
+else
+    fail "Directory does not exists: ${basepath}"
+fi
