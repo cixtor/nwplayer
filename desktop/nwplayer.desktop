@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=NWPlayer
+Comment=Watch and keep a history of views for videos served in multiple websites
+Exec=/opt/nwplayer/nwplayer
+Terminal=false
+Icon=/opt/nwplayer/desktop/nwplayer-icon.png
+Categories=AudioVideo;
