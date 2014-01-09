@@ -2,15 +2,16 @@
 
 Desktop and web application to watch videos from major websites and saving the history in a local database. Check the history, video information, related videos, playlists, avoid ads in the interface and take control of your stats without affect your browsing.
 
-It was initially developed on top of [Sinatra](http://www.sinatrarb.com) and rewritten into [Node.JS](http://nodejs.org/) and [Sqlite3](https://github.com/mapbox/node-sqlite3) to improve the performance. **WARNING** the code is still being rewritten, so the functionality that you will find here has not the 100% of tools available in the _ruby_ based version.
+It was initially developed on top of [Sinatra](http://www.sinatrarb.com) and rewritten into [Node.JS](http://nodejs.org/) and [Sqlite3](https://github.com/mapbox/node-sqlite3) to improve the performance. The goal is to have this application running over a [Node-Webkit](https://github.com/rogerwang/node-webkit) instance, but while the support for _SQLite_ is finished the application will run in a browser through this _URL_ [LocalHost 3000](http://localhost:3000/) and optionally through a mini-browser powered by _Python_, _GTK_ and _Webkit_.
 
 ### Features
 
 * Video description and thumbnails.
 * Video reload (without database manipulation) for video streaming errors.
-* Video hitory including a way to search in the database by title and video id.
-* Display related videos (Youtube support only).
-* Display videos from a Playlist (Youtube support only).
+* Video history including a way to search in the database by title and video id.
+* Display related videos (YouTube support only).
+* Display videos from a Playlist (YouTube support only).
+* Search videos remotely (YouTube support only)
 
 ### Developers Guide JSON
 
