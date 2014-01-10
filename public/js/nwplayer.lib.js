@@ -213,7 +213,7 @@ var NWPlayerLib = {
 
     reset_media_content: function(){
         var instance = NWPlayerLib;
-        var containers = [ '.alert', '.videolist', '.dbhistory' ];
+        var containers = [ '.alert', '.videolist', '.dbhistory', 'iframe' ];
 
         for( var i in containers ){
             var container_class = containers[i];
