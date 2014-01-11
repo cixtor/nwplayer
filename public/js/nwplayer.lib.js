@@ -90,7 +90,7 @@ var NWPlayerLib = {
     },
 
     is_json_error: function(data){
-        if( data.status == undefined || data.status == 0 ){ return true }
+        if( data.status != undefined && data.status == 0 ){ return true }
         else{ return false }
     },
 
@@ -235,5 +235,5 @@ jQuery(document).ready(function(){
     $(NWPlayerLib.config.input_id).addClass('loading');
     NWPlayerLib.reset_media_content();
 }).ajaxComplete(function(){
-    $(NWPlayerLib.config.input_id).removeClass('loading');
+    $(NWPlayerLib.config.input_id).removeClass('loading').focus();
 });

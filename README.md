@@ -4,6 +4,8 @@ Desktop and web application to watch videos from major websites and saving the h
 
 It was initially developed on top of [Sinatra](http://www.sinatrarb.com) and rewritten into [Node.JS](http://nodejs.org/) and [Sqlite3](https://github.com/mapbox/node-sqlite3) to improve the performance. The goal is to have this application running over a [Node-Webkit](https://github.com/rogerwang/node-webkit) instance, but while the support for _SQLite_ is finished the application will run in a browser through this _URL_ [LocalHost 3000](http://localhost:3000/) and optionally through a mini-browser powered by _Python_, _GTK_ and _Webkit_.
 
+![NWPlayer Screenshot](http://cixtor.com/uploads/nwplayer-screenshot-0.png)
+
 ### Features
 
 * Video description and thumbnails.
