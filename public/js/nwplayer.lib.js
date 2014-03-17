@@ -18,6 +18,7 @@ var NWPlayerLib = {
         content_id: '#media-content',
         loading_id: '#loading',
         iframe_id: '#video-player',
+        video_metadata: '#videolist-metadata',
         iframe_width: 700,
         iframe_height: 430
     },
@@ -82,11 +83,35 @@ var NWPlayerLib = {
         }else{
             $(config.content_id).html(iframe);
         }
-        $(config.content_id+'>.metadata .video-image').html( $('<img>',{ src:data.image }) );
-        $(config.content_id+'>.metadata .video-information .title').html(data.title);
-        // $(config.content_id+'>.metadata .video-information .duration .value').html(data.duration/60);
-        $(config.content_id+'>.metadata .video-information blockquote>p').html(data.description);
-        $(config.content_id+'>.metadata .video-information blockquote>small').html( $('<a>',{href:data.url}).html(data.url) );
+        instance.draw_metadata(data);
+    },
+
+    draw_metadata: function(data){
+        var instance = NWPlayerLib;
+        var metadata_div_id = instance.config.video_metadata.replace('#','');
+        $(instance.config.content_id+'>iframe').before(
+            $('<div>',{ 'class':'search-video videolist hidden', 'id':metadata_div_id }).html(
+                $('<ul>',{ 'class':'thumbnails' }).html(
+                    $('<li>',{ 'class':'video-item clearfix' }).append(
+                        $('<div>',{ 'class':'thumbnail pull-left' }).append(
+                            $('<a>',{ 'href':data.url, 'class':'view-video' }).html(
+                                $('<img>',{ 'src':data.image })
+                            )
+                        ).append(
+                            $('<span>',{ 'class':'duration' }).html(data.duration)
+                        )
+                    ).append(
+                        $('<div>',{ 'class':'pull-right information' }).append(
+                            $('<a>',{ 'href':data.url, 'class':'view-video video-title' }).html(data.title)
+                        ).append(
+                            $('<ul>',{ 'class':'metadata' }).html('')
+                        ).append(
+                            $('<p>').html(data.description)
+                        )
+                    )
+                )
+            )
+        );
     },
 
     is_json_error: function(data){
@@ -231,6 +256,15 @@ jQuery(document).ready(function(){
     $('#video-playlist').on('click', NWPlayerLib.video_playlist);
     $('#video-related').on('click', NWPlayerLib.related_video);
     $('#video-refresh').on('click', NWPlayerLib.video_refresh);
+    $('#video-metadata').on('click', function(){
+        var metadata_div =  $(NWPlayerLib.config.video_metadata);
+        var is_hidden = metadata_div.hasClass('hidden');
+        if( is_hidden ){
+            metadata_div.removeClass('hidden');
+        } else {
+            metadata_div.addClass('hidden');
+        }
+    });
 }).ajaxStart(function(){
     $(NWPlayerLib.config.input_id).addClass('loading');
     NWPlayerLib.reset_media_content();
