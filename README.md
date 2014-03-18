@@ -15,30 +15,6 @@ It was initially developed on top of [Sinatra](http://www.sinatrarb.com) and rew
 * Display videos from a Playlist (YouTube support only).
 * Search videos remotely (YouTube support only)
 
-### Developers Guide JSON
-
-An increasingly popular alternative to XML is JSON (JavaScript Object Notation). It is a
-simplistic text-based format that is designed to be human readable. Unlike XML, it has no
-notion of namespaces and can only represent data in the format of associative arrays.
-All Data APIs support JSON output through the use of the alt parameter. For example, you
-can retrieve the current most popular videos from YouTube in JSON format as follows:
-
-```
-http://gdata.youtube.com/feeds/api/standardfeeds/most_popular?v=2&alt=json
-```
-
-Reference: [Developers Guide JSON](https://developers.google.com/youtube/2.0/developers_guide_json)
-
-### Developers Guide JSON-C
-
-When submitting a YouTube Data API request, you can use the alt query parameter to specify
-the format of the API response. The API can return responses in a number of formats, including
-Atom (XML), RSS (XML), JSON (JavaScript Object Notation) and JSON-C, which is a variant of JSON.
-This document describes the JSON-C response format, which is designed to allow developers a
-basic level of API access to API responses from JavaScript and other clients.
-
-Reference: [Developers Guide JSON-C](https://developers.google.com/youtube/2.0/developers_guide_jsonc)
-
 ### License
 
 ```
