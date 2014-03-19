@@ -9,15 +9,15 @@
 # videos, playlists, avoid ads in the interface and take control of your stats
 # without affect your browsing.
 #
-import os
+from os import path
 import gtk
 import webkit
 
 class NWPlayer:
     def get_resource_path(self, rel_path):
-        dir_of_py_file = os.path.dirname(__file__)
-        rel_path_to_resource = os.path.join(dir_of_py_file, rel_path)
-        abs_path_to_resource = os.path.abspath(rel_path_to_resource)
+        dir_of_py_file = path.dirname(__file__)
+        rel_path_to_resource = path.join(dir_of_py_file, rel_path)
+        abs_path_to_resource = path.abspath(rel_path_to_resource)
         return abs_path_to_resource
 
     def destroy(self, widget, data=None):
