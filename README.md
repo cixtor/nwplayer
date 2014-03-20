@@ -15,6 +15,18 @@ It was initially developed on top of [Sinatra](http://www.sinatrarb.com) and rew
 * Display videos from a Playlist (YouTube support only).
 * Search videos remotely (YouTube support only)
 
+### Installation
+
+```shell
+$ cd /opt/
+$ git clone https://github.com/cixtor/nwplayer
+$ cd /usr/share/applications
+$ ln -s /opt/nwplayer/desktop/nwplayer.desktop
+$ cd /opt/nwplayer
+$ npm install
+$ bash ./nwplayer
+```
+
 ### License
 
 ```
