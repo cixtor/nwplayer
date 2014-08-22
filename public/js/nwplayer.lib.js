@@ -236,6 +236,24 @@ var NWPlayerLib = {
         }
     },
 
+    video_random: function(){
+        var instance = NWPlayerLib;
+        var random_code = instance.random_string(11);
+        var video_url = $(instance.config.input_id).val(random_code);
+        instance.video_play();
+    },
+
+    random_string: function(length){
+        var random_code = '';
+        var alphanum = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_';
+        var alphanum_len = alphanum.length;
+        for( var i=0; i<length; i++ ){
+            var random_char = Math.random() * alphanum_len;
+            random_code += alphanum.charAt( Math.floor(random_char) );
+        }
+        return random_code;
+    },
+
     reset_media_content: function(){
         var instance = NWPlayerLib;
         var containers = [ '.alert', '.videolist', '.dbhistory', 'iframe' ];
@@ -256,6 +274,7 @@ jQuery(document).ready(function(){
     $('#video-playlist').on('click', NWPlayerLib.video_playlist);
     $('#video-related').on('click', NWPlayerLib.related_video);
     $('#video-refresh').on('click', NWPlayerLib.video_refresh);
+    $('#video-random').on('click', NWPlayerLib.video_random);
     $('#video-metadata').on('click', function(){
         var metadata_div =  $(NWPlayerLib.config.video_metadata);
         var is_hidden = metadata_div.hasClass('hidden');
