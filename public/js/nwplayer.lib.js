@@ -238,9 +238,20 @@ var NWPlayerLib = {
 
     video_random: function(){
         var instance = NWPlayerLib;
-        var random_code = instance.random_string(11);
+        if( instance.random_integer(20) <= 10 ){
+            var random_code = instance.random_string(11);
+        } else {
+            var random_code = instance.random_integer();
+        }
         var video_url = $(instance.config.input_id).val(random_code);
         instance.video_play();
+    },
+
+    random_integer: function(max){
+        var min = 1;
+        if( max === undefined ){ max = 199999999; }
+        var random = Math.random() * (max - min + 1);
+        return Math.floor(random) + min;
     },
 
     random_string: function(length){

@@ -17,7 +17,7 @@
 ::-webkit-scrollbar-corner{background:transparent}
 /* Generic styles */
 body{margin:0px;padding:0px;background-color:#333;overflow:hidden}
-#nwplayer{display:table;width:702px;margin:0 auto}
+#nwplayer{display:table;margin:0 auto}
 #nwplayer .navbar{margin-bottom:0;border-radius:0}
 #nwplayer .toolbar{width:525px;line-height:50px}
 #nwplayer #media-content{width:702px;height:436px;overflow:hidden;overflow-y:auto;background:#1b1b1b;padding:0;border:1px solid #000;border-top:none}
