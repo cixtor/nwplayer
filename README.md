@@ -14,17 +14,17 @@ It was initially developed on top of [Sinatra](http://www.sinatrarb.com) and rew
 * Display related videos (YouTube support only).
 * Display videos from a Playlist (YouTube support only).
 * Search videos remotely (YouTube support only)
+* Play random videos from YouTube and Vimeo.
 
 ### Installation
 
 ```shell
-$ cd /opt/
-$ git clone https://github.com/cixtor/nwplayer
-$ cd /usr/share/applications
+$ wget -c https://github.com/cixtor/nwplayer/archive/master.zip
+$ unzip master.zip && mv -v nwplayer-master /opt/nwplayer
+$ cd /opt/nwplayer && npm install
+$ cd ~/.local/share/applications/
 $ ln -s /opt/nwplayer/desktop/nwplayer.desktop
-$ cd /opt/nwplayer
-$ npm install
-$ bash ./nwplayer
+$ bash /opt/nwplayer/nwplayer
 ```
 
 ### License
