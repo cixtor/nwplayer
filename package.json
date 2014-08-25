@@ -1,19 +1,19 @@
 {
   "name": "nwplayer",
-  "version": "0.0.1",
+  "version": "3.0.2",
   "private": true,
   "description": "Desktop and web application to watch videos from major websites and saving the history in a local database. Check the history, video information, related videos, playlists, avoid ads in the interface and take control of your stats without affect your browsing.",
   "main": "app.js",
   "author": "Cixtor",
-  "license": "BSD-2-Clause",
+  "license": "MIT-License",
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "sqlite3": "2.1.19",
     "express": "3.4.6",
-    "ejs": "*",
-    "sqlite3": "2.1.19"
+    "ejs": "*"
   },
   "repository": {
     "type": "git",
