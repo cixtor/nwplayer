@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "sqlite3": "2.1.19",
-    "express": "3.4.6",
+    "express": ">=3.11.0",
     "ejs": "*"
   },
   "repository": {
